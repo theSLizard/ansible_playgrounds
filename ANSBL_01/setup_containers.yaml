@@ -47,23 +47,45 @@
         name: ansible_network
         driver: bridge
 
+    - name: Build Docker image from Dockerfile
+      community.docker.docker_image:
+        build:
+          path: .
+        name: alpine-ssh
+        tag: latest    
+        source: build
+
     - name: Create Docker container 1
       docker_container:
         name: container1
-        image: alpine
+        image: alpine-ssh:latest
         state: started
+        published_ports:
+          - "2222:22"
+          - "7682:7681"
         networks:
           - name: ansible_network
         command: sleep infinity
 
+    - name: Create user 'user' inside container1
+      command: docker exec container1 adduser -D -u 1000 user   
+      ignore_errors: true  
+
     - name: Create Docker container 2
       docker_container:
         name: container2
-        image: alpine
+        image: alpine-ssh:latest
         state: started
+        published_ports:
+          - "2223:22"
+          - "7683:7681"
         networks:
           - name: ansible_network
-        command: sleep infinity
+        command: /bin/sh -c "apk add --no-cache openssh && ssh-keygen -A && /usr/sbin/sshd -D"
+
+    - name: Create user 'user' inside container2
+      command: docker exec container2 adduser -D -u 1000 user   
+      ignore_errors: true     
 
     - name: Retrieve IP address of container1 
       shell: docker inspect -f '{{"{{"}}range .NetworkSettings.Networks{{"}}"}}{{"{{"}}.IPAddress{{"}}"}}{{"{{"}}end{{"}}"}}' container1
@@ -78,8 +100,8 @@
         dest: ./inventory/docker_hosts
         content: |
           [docker_containers]
-          container1 ansible_host={{ container1_ip.stdout }}
-          container2 ansible_host={{ container2_ip.stdout }}
+          container1 ansible_host={{ container1_ip.stdout }} ansible_port=2222 ansible_user=user ansible_ssh_private_key_file=~/.ssh/id_rsa
+          container2 ansible_host={{ container2_ip.stdout }} ansible_port=2223 ansible_user=user ansible_ssh_private_key_file=~/.ssh/id_rsa
 
     - name: Display dynamic inventory file content
       command: cat ./inventory/docker_hosts
@@ -96,3 +118,47 @@
     - name: Display IP address of container2
       debug:
         msg: "Container2 IP: {{ container2_ip.stdout }}"
+
+    - name: Ensure containers are running
+      docker_container:
+        name: "{{ item }}"
+        state: started
+      with_items:
+        - container1
+        - container2
+
+    - name: Wait for SSH to be available on container1
+      wait_for:
+        port: 2222
+        host: localhost
+        timeout: 30
+
+    - name: Wait for SSH to be available on container2
+      wait_for:
+        port: 2223
+        host: localhost
+        timeout: 30
+
+    - name: Copy SSH public key to container1
+      community.docker.docker_container_exec:
+        container: container1
+        command: mkdir -p /root/.ssh && echo "{{ lookup('file', '~/.ssh/id_rsa.pub') }}" >> /root/.ssh/authorized_keys
+
+    - name: Copy SSH public key to container2
+      community.docker.docker_container_exec:
+        container: container2
+        command: mkdir -p /root/.ssh && echo "{{ lookup('file', '~/.ssh/id_rsa.pub') }}" >> /root/.ssh/authorized_keys
+
+- name: Ping Docker containers
+  hosts: docker_containers
+  gather_facts: false
+  tasks:
+
+    - name: Ping the container
+      ping:          
+
+
+
+
+
+
