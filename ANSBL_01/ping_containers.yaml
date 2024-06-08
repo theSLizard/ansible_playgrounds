@@ -1,0 +1,6 @@
+---
+- name: Ping Docker containers
+  hosts: docker_containers
+  tasks:
+    - name: Ping the container
+      ping:

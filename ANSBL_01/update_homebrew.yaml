@@ -1,0 +1,14 @@
+---
+- name: Update Homebrew and install packages
+  hosts: local
+  become: yes
+  tasks:
+    - name: Ensure Homebrew is up to date
+      command: brew update
+
+    - name: Ensure wget is installed
+      homebrew:
+        name: wget
+        state: present
+
+        

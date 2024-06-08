@@ -1,0 +1,15 @@
+---
+- name: Run asitop with privilege escalation
+  hosts: local
+  become: yes
+  become_method: sudo
+  become_user: root
+  tasks:
+    - name: Run asitop
+      command: asitop
+      register: asitop_output
+      become: yes
+
+    - name: Print asitop output
+      debug:
+        var: asitop_output.stdout

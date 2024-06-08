@@ -1,0 +1,98 @@
+---
+- name: Ensure necessary Python packages are installed
+  hosts: localhost
+  tasks:
+    - name: Ensure requests module is installed
+      pip:
+        name: requests
+        state: present
+        executable: pip3
+
+- name: Ensure Docker is installed and running, set up Docker containers
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Check if Docker is installed
+      command: which docker
+      register: docker_installed
+      ignore_errors: yes
+
+    - name: Install Docker using Homebrew
+      homebrew_cask:
+        name: docker
+      when: docker_installed.rc != 0
+
+    - name: Start Docker Desktop (macOS specific)
+      command: open /Applications/Docker.app
+      become: yes
+      when: docker_installed.rc != 0
+
+    - name: Wait for Docker to start
+      wait_for:
+        port: 2375
+        host: localhost
+        delay: 30
+      when: docker_installed.rc != 0
+
+    - name: Ensure Docker is running
+      command: docker ps
+      register: docker_running
+      retries: 5
+      delay: 10
+      until: docker_running.rc == 0
+
+    - name: Create Docker network
+      docker_network:
+        name: ansible_network
+        driver: bridge
+
+    - name: Create Docker container 1
+      docker_container:
+        name: container1
+        image: alpine
+        state: started
+        networks:
+          - name: ansible_network
+        command: sleep infinity
+
+    - name: Create Docker container 2
+      docker_container:
+        name: container2
+        image: alpine
+        state: started
+        networks:
+          - name: ansible_network
+        command: sleep infinity
+
+    - name: Retrieve IP address of container1 
+      shell: docker inspect -f '{{"{{"}}range .NetworkSettings.Networks{{"}}"}}{{"{{"}}.IPAddress{{"}}"}}{{"{{"}}end{{"}}"}}' container1
+      register: container1_ip
+
+    - name: Retrieve IP address of container2 
+      shell: docker inspect -f '{{"{{"}}range .NetworkSettings.Networks{{"}}"}}{{"{{"}}.IPAddress{{"}}"}}{{"{{"}}end{{"}}"}}' container2
+      register: container2_ip
+
+    - name: Create dynamic inventory
+      copy:
+        dest: ./inventory/docker_hosts
+        content: |
+          [docker_containers]
+          container1 ansible_host={{ container1_ip.stdout }}
+          container2 ansible_host={{ container2_ip.stdout }}
+
+    - name: Display dynamic inventory file content
+      command: cat ./inventory/docker_hosts
+      register: inventory_content
+
+    - name: Show inventory content
+      debug:
+        msg: "{{ inventory_content.stdout }}"
+
+    - name: Display IP address of container1
+      debug:
+        msg: "Container1 IP: {{ container1_ip.stdout }}"
+
+    - name: Display IP address of container2
+      debug:
+        msg: "Container2 IP: {{ container2_ip.stdout }}"

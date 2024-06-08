@@ -1,0 +1,25 @@
+- name: Run asitop with privilege escalation
+  hosts: local
+  tasks:
+    - name: Ensure tmux is installed
+      homebrew:
+        name: tmux
+        state: present
+      tags: ensure_tmux_installed  
+
+    - name: Kill existing asitop tmux session
+      command: tmux kill-session -t asitop_session
+      ignore_errors: yes
+      tags: cleanup_tmux  
+
+    - name: Run asitop in tmux
+      command: tmux new-session -d -s asitop_session 'asitop'
+      register: asitop_output
+      become: yes
+      become_method: sudo
+      become_user: root
+      tags: run_asitop
+
+    - name: Print tmux output
+      debug:
+        var: asitop_output.stdout

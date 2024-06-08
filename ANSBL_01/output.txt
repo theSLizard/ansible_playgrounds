@@ -1,0 +1,57 @@
+
+PLAY [Ensure Docker is installed and running, set up Docker containers] ********
+
+TASK [Check if Docker is installed] ********************************************
+changed: [localhost]
+
+TASK [Install Docker using Homebrew] *******************************************
+skipping: [localhost]
+
+TASK [Start Docker Desktop (macOS specific)] ***********************************
+skipping: [localhost]
+
+TASK [Wait for Docker to start] ************************************************
+skipping: [localhost]
+
+TASK [Ensure Docker is running] ************************************************
+changed: [localhost]
+
+TASK [Create Docker network] ***************************************************
+ok: [localhost]
+
+TASK [Create Docker container 1] ***********************************************
+ok: [localhost]
+
+TASK [Create Docker container 2] ***********************************************
+ok: [localhost]
+
+TASK [Retrieve IP address of container1] ***************************************
+changed: [localhost]
+
+TASK [Retrieve IP address of container2] ***************************************
+changed: [localhost]
+
+TASK [Create dynamic inventory] ************************************************
+ok: [localhost]
+
+TASK [Display dynamic inventory file content] **********************************
+changed: [localhost]
+
+TASK [Show inventory content] **************************************************
+ok: [localhost] => {
+    "msg": "[docker_containers]\ncontainer1 ansible_host=172.18.0.2\ncontainer2 ansible_host=172.18.0.3"
+}
+
+TASK [Display IP address of container1] ****************************************
+ok: [localhost] => {
+    "msg": "Container1 IP: 172.18.0.2"
+}
+
+TASK [Display IP address of container2] ****************************************
+ok: [localhost] => {
+    "msg": "Container2 IP: 172.18.0.3"
+}
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=12   changed=5    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
+

@@ -1,0 +1,23 @@
+---
+- name: Check network connection speed
+  hosts: local
+  tasks:
+    - name: Ensure pip is installed
+      command: python3 -m ensurepip --upgrade
+      tags: ensure_pip_installed
+
+    - name: Ensure speedtest-cli is installed via pip
+      pip:
+        name: speedtest-cli
+        state: present
+      tags: ensure_speedtest_installed
+
+    - name: Run speedtest-cli
+      command: speedtest-cli --json
+      register: speedtest_output
+      tags: run_speedtest
+
+    - name: Display speedtest results
+      debug:
+        var: speedtest_output.stdout
+      tags: display_speedtest_output
