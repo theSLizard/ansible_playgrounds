@@ -17467,3 +17467,421 @@ disabled by setting deprecation_warnings=False in ansible.cfg.
 2024-06-08 19:37:07,011 p=1699 u=thefisherking n=ansible | container1                 : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
 2024-06-08 19:37:07,011 p=1699 u=thefisherking n=ansible | container2                 : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
 2024-06-08 19:37:07,011 p=1699 u=thefisherking n=ansible | localhost                  : ok=22   changed=9    unreachable=0    failed=0    skipped=3    rescued=0    ignored=2   
+2024-06-08 19:49:44,386 p=3784 u=thefisherking n=ansible | PLAY [Ensure necessary Python packages are installed] *******************************************************************************************
+2024-06-08 19:49:44,394 p=3784 u=thefisherking n=ansible | TASK [Gathering Facts] **************************************************************************************************************************
+2024-06-08 19:49:45,098 p=3784 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 19:49:45,105 p=3784 u=thefisherking n=ansible | TASK [Ensure requests module is installed] ******************************************************************************************************
+2024-06-08 19:49:45,802 p=3784 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 19:49:45,810 p=3784 u=thefisherking n=ansible | PLAY [Ensure Docker is installed and running, set up Docker containers] *************************************************************************
+2024-06-08 19:49:45,818 p=3784 u=thefisherking n=ansible | TASK [Check if Docker is installed] *************************************************************************************************************
+2024-06-08 19:49:46,068 p=3784 u=thefisherking n=ansible | changed: [localhost]
+2024-06-08 19:49:46,072 p=3784 u=thefisherking n=ansible | TASK [Install Docker using Homebrew] ************************************************************************************************************
+2024-06-08 19:49:46,080 p=3784 u=thefisherking n=ansible | skipping: [localhost]
+2024-06-08 19:49:46,083 p=3784 u=thefisherking n=ansible | TASK [Start Docker Desktop (macOS specific)] ****************************************************************************************************
+2024-06-08 19:49:46,091 p=3784 u=thefisherking n=ansible | skipping: [localhost]
+2024-06-08 19:49:46,094 p=3784 u=thefisherking n=ansible | TASK [Wait for Docker to start] *****************************************************************************************************************
+2024-06-08 19:49:46,103 p=3784 u=thefisherking n=ansible | skipping: [localhost]
+2024-06-08 19:49:46,105 p=3784 u=thefisherking n=ansible | TASK [Ensure Docker is running] *****************************************************************************************************************
+2024-06-08 19:49:46,368 p=3784 u=thefisherking n=ansible | changed: [localhost]
+2024-06-08 19:49:46,370 p=3784 u=thefisherking n=ansible | TASK [Create Docker network] ********************************************************************************************************************
+2024-06-08 19:49:46,810 p=3784 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 19:49:46,812 p=3784 u=thefisherking n=ansible | TASK [Build Docker image from Dockerfile] *******************************************************************************************************
+2024-06-08 19:49:47,247 p=3784 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 19:49:47,250 p=3784 u=thefisherking n=ansible | TASK [Create Docker container 1] ****************************************************************************************************************
+2024-06-08 19:49:47,752 p=3784 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 19:49:47,755 p=3784 u=thefisherking n=ansible | TASK [Create user 'user' inside container1] *****************************************************************************************************
+2024-06-08 19:49:48,038 p=3784 u=thefisherking n=ansible | fatal: [localhost]: FAILED! => {"changed": true, "cmd": ["docker", "exec", "container1", "adduser", "-D", "-u", "1000", "user"], "delta": "0:00:00.092490", "end": "2024-06-08 19:49:48.015944", "msg": "non-zero return code", "rc": 1, "start": "2024-06-08 19:49:47.923454", "stderr": "adduser: user 'user' in use", "stderr_lines": ["adduser: user 'user' in use"], "stdout": "", "stdout_lines": []}
+2024-06-08 19:49:48,038 p=3784 u=thefisherking n=ansible | ...ignoring
+2024-06-08 19:49:48,041 p=3784 u=thefisherking n=ansible | TASK [Create Docker container 2] ****************************************************************************************************************
+2024-06-08 19:49:48,742 p=3784 u=thefisherking n=ansible | changed: [localhost]
+2024-06-08 19:49:48,745 p=3784 u=thefisherking n=ansible | TASK [Create user 'user' inside container2] *****************************************************************************************************
+2024-06-08 19:49:49,029 p=3784 u=thefisherking n=ansible | changed: [localhost]
+2024-06-08 19:49:49,033 p=3784 u=thefisherking n=ansible | TASK [Retrieve IP address of container1] ********************************************************************************************************
+2024-06-08 19:49:49,278 p=3784 u=thefisherking n=ansible | changed: [localhost]
+2024-06-08 19:49:49,280 p=3784 u=thefisherking n=ansible | TASK [Retrieve IP address of container2] ********************************************************************************************************
+2024-06-08 19:49:49,536 p=3784 u=thefisherking n=ansible | changed: [localhost]
+2024-06-08 19:49:49,541 p=3784 u=thefisherking n=ansible | TASK [Create dynamic inventory] *****************************************************************************************************************
+2024-06-08 19:49:50,028 p=3784 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 19:49:50,030 p=3784 u=thefisherking n=ansible | TASK [Display dynamic inventory file content] ***************************************************************************************************
+2024-06-08 19:49:50,229 p=3784 u=thefisherking n=ansible | changed: [localhost]
+2024-06-08 19:49:50,233 p=3784 u=thefisherking n=ansible | TASK [Show inventory content] *******************************************************************************************************************
+2024-06-08 19:49:50,241 p=3784 u=thefisherking n=ansible | ok: [localhost] => {
+    "msg": "[docker_containers]\ncontainer1 ansible_host=172.19.0.2 ansible_port=2222 ansible_user=user ansible_ssh_private_key_file=~/.ssh/id_rsa\ncontainer2 ansible_host=172.19.0.3 ansible_port=2223 ansible_user=user ansible_ssh_private_key_file=~/.ssh/id_rsa"
+}
+2024-06-08 19:49:50,244 p=3784 u=thefisherking n=ansible | TASK [Display IP address of container1] *********************************************************************************************************
+2024-06-08 19:49:50,252 p=3784 u=thefisherking n=ansible | ok: [localhost] => {
+    "msg": "Container1 IP: 172.19.0.2"
+}
+2024-06-08 19:49:50,254 p=3784 u=thefisherking n=ansible | TASK [Display IP address of container2] *********************************************************************************************************
+2024-06-08 19:49:50,263 p=3784 u=thefisherking n=ansible | ok: [localhost] => {
+    "msg": "Container2 IP: 172.19.0.3"
+}
+2024-06-08 19:49:50,265 p=3784 u=thefisherking n=ansible | TASK [Ensure containers are running] ************************************************************************************************************
+2024-06-08 19:49:50,642 p=3784 u=thefisherking n=ansible | ok: [localhost] => (item=container1)
+2024-06-08 19:49:51,006 p=3784 u=thefisherking n=ansible | ok: [localhost] => (item=container2)
+2024-06-08 19:49:51,011 p=3784 u=thefisherking n=ansible | TASK [Wait for SSH to be available on container1] ***********************************************************************************************
+2024-06-08 19:49:51,268 p=3784 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 19:49:51,271 p=3784 u=thefisherking n=ansible | TASK [Wait for SSH to be available on container2] ***********************************************************************************************
+2024-06-08 19:49:51,467 p=3784 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 19:49:51,470 p=3784 u=thefisherking n=ansible | TASK [Debug SSH public key] *********************************************************************************************************************
+2024-06-08 19:49:51,480 p=3784 u=thefisherking n=ansible | ok: [localhost] => {
+    "msg": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDDza8JZwwvJ9u+KzJxLG05knnsgsm7JyxB8jJOm+1oS5m40jvb14Z/JOiAqR4wgM/q1wyCbcZwhz1UtDihTVpm9Zk7uoTnMoW0ziUP0QmJFkVaajzzw3NeikiL+0P/UzhzjzRf/oiDUFO4FYeX1+fxi0GA/mn5ee47xArF5kq7D9w8nBXko1UiwvG9SN3KjJEV8Fwq2j2TuAKZbA92+wFh2IpxFlo1YSG/TeEgbJ3TbyIGuAjcyzCWL8LiwhK36bOYhsxOW8HCitWDjA20aSn764ms+1JVPQhZU3esgwB3YqT1+4k/oYBhrJF2is+z5WcehiWmU5v9ci8boJDAH026VsXjQVfSspEPJQMY1FWvid4mCr5N+oyTa4vsP2SNnF2CXlle+hPMXjdV67kXbM6oAnS/qrs8aIJ9iWLSoAOOeN5ODv6q9d1gWmIXfjKW30D0kmicruyx0AOGBqB7UFpjhDLX0Iravx3YKIL9mJuqAam8jXRXvHyasqdJW2jz7uc0YOZsc17OjS6SUSA02UnG2DvEGOMm2jFxZzcUnlRdcwvDmKcKQDObrVVL4NMGZrJEqThu9OSP+8oMf2PCQVo+RYKXiU/ohu9dsZc3nEXCOetBH7XtobIZLSvZHh6WsEWLXx/E2LbKn8ICFDH7d+ANGwc8UejYYh38YXxPwZiLFw== locsei@gmail.com"
+}
+2024-06-08 19:49:51,483 p=3784 u=thefisherking n=ansible | TASK [Copy SSH public key to container1] ********************************************************************************************************
+2024-06-08 19:49:51,934 p=3784 u=thefisherking n=ansible | changed: [localhost]
+2024-06-08 19:49:51,938 p=3784 u=thefisherking n=ansible | TASK [Copy SSH public key to container2] ********************************************************************************************************
+2024-06-08 19:49:52,287 p=3784 u=thefisherking n=ansible | changed: [localhost]
+2024-06-08 19:49:52,296 p=3784 u=thefisherking n=ansible | PLAY [Ping Docker containers] *******************************************************************************************************************
+2024-06-08 19:49:52,299 p=3784 u=thefisherking n=ansible | TASK [Ping the container] ***********************************************************************************************************************
+2024-06-08 19:50:02,392 p=3784 u=thefisherking n=ansible | fatal: [container2]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 172.19.0.3 port 2223: Operation timed out", "unreachable": true}
+2024-06-08 19:50:02,393 p=3784 u=thefisherking n=ansible | fatal: [container1]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 172.19.0.2 port 2222: Operation timed out", "unreachable": true}
+2024-06-08 19:50:02,394 p=3784 u=thefisherking n=ansible | PLAY RECAP **************************************************************************************************************************************
+2024-06-08 19:50:02,394 p=3784 u=thefisherking n=ansible | container1                 : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2024-06-08 19:50:02,394 p=3784 u=thefisherking n=ansible | container2                 : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2024-06-08 19:50:02,394 p=3784 u=thefisherking n=ansible | localhost                  : ok=23   changed=10   unreachable=0    failed=0    skipped=3    rescued=0    ignored=1   
+2024-06-08 19:54:34,378 p=4850 u=thefisherking n=ansible | ERROR! We were unable to read either as JSON nor YAML, these are the errors we got from each:
+JSON: Expecting value: line 1 column 1 (char 0)
+
+Syntax Error while loading YAML.
+  mapping values are not allowed in this context
+
+The error appears to be in '/Users/thefisherking/DEV/ansible_playgrounds/ANSBL_01/setup_containers.yaml': line 149, column 18, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+        container: container1
+          command: >
+                 ^ here
+
+2024-06-08 19:55:39,928 p=4993 u=thefisherking n=ansible | ERROR! We were unable to read either as JSON nor YAML, these are the errors we got from each:
+JSON: Expecting value: line 1 column 1 (char 0)
+
+Syntax Error while loading YAML.
+  mapping values are not allowed in this context
+
+The error appears to be in '/Users/thefisherking/DEV/ansible_playgrounds/ANSBL_01/setup_containers.yaml': line 149, column 18, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+        container: container1
+          command: sh -c 'mkdir -p /root/.ssh && echo -e "{{ lookup('file', '~/.ssh/id_rsa.pub') }}" >> /root/.ssh/authorized_keys'
+                 ^ here
+We could be wrong, but this one looks like it might be an issue with
+missing quotes. Always quote template expression brackets when they
+start a value. For instance:
+
+    with_items:
+      - {{ foo }}
+
+Should be written as:
+
+    with_items:
+      - "{{ foo }}"
+
+2024-06-08 19:57:25,915 p=5213 u=thefisherking n=ansible | ERROR! conflicting action statements: debug, msg
+
+The error appears to be in '/Users/thefisherking/DEV/ansible_playgrounds/ANSBL_01/setup_containers.yaml': line 142, column 7, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+
+    - name: Debug SSH public key
+      ^ here
+
+2024-06-08 19:58:06,382 p=5299 u=thefisherking n=ansible | PLAY [Ensure necessary Python packages are installed] *******************************************************************************************
+2024-06-08 19:58:06,389 p=5299 u=thefisherking n=ansible | TASK [Gathering Facts] **************************************************************************************************************************
+2024-06-08 19:58:07,067 p=5299 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 19:58:07,073 p=5299 u=thefisherking n=ansible | TASK [Ensure requests module is installed] ******************************************************************************************************
+2024-06-08 19:58:07,764 p=5299 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 19:58:07,772 p=5299 u=thefisherking n=ansible | PLAY [Ensure Docker is installed and running, set up Docker containers] *************************************************************************
+2024-06-08 19:58:07,780 p=5299 u=thefisherking n=ansible | TASK [Check if Docker is installed] *************************************************************************************************************
+2024-06-08 19:58:08,031 p=5299 u=thefisherking n=ansible | changed: [localhost]
+2024-06-08 19:58:08,033 p=5299 u=thefisherking n=ansible | TASK [Install Docker using Homebrew] ************************************************************************************************************
+2024-06-08 19:58:08,041 p=5299 u=thefisherking n=ansible | skipping: [localhost]
+2024-06-08 19:58:08,044 p=5299 u=thefisherking n=ansible | TASK [Start Docker Desktop (macOS specific)] ****************************************************************************************************
+2024-06-08 19:58:08,051 p=5299 u=thefisherking n=ansible | skipping: [localhost]
+2024-06-08 19:58:08,053 p=5299 u=thefisherking n=ansible | TASK [Wait for Docker to start] *****************************************************************************************************************
+2024-06-08 19:58:08,060 p=5299 u=thefisherking n=ansible | skipping: [localhost]
+2024-06-08 19:58:08,063 p=5299 u=thefisherking n=ansible | TASK [Ensure Docker is running] *****************************************************************************************************************
+2024-06-08 19:58:08,323 p=5299 u=thefisherking n=ansible | changed: [localhost]
+2024-06-08 19:58:08,325 p=5299 u=thefisherking n=ansible | TASK [Create Docker network] ********************************************************************************************************************
+2024-06-08 19:58:08,763 p=5299 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 19:58:08,765 p=5299 u=thefisherking n=ansible | TASK [Build Docker image from Dockerfile] *******************************************************************************************************
+2024-06-08 19:58:09,203 p=5299 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 19:58:09,206 p=5299 u=thefisherking n=ansible | TASK [Create Docker container 1] ****************************************************************************************************************
+2024-06-08 19:58:09,716 p=5299 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 19:58:09,718 p=5299 u=thefisherking n=ansible | TASK [Create user 'user' inside container1] *****************************************************************************************************
+2024-06-08 19:58:10,008 p=5299 u=thefisherking n=ansible | fatal: [localhost]: FAILED! => {"changed": true, "cmd": ["docker", "exec", "container1", "adduser", "-D", "-u", "1000", "user"], "delta": "0:00:00.100328", "end": "2024-06-08 19:58:09.985689", "msg": "non-zero return code", "rc": 1, "start": "2024-06-08 19:58:09.885361", "stderr": "adduser: user 'user' in use", "stderr_lines": ["adduser: user 'user' in use"], "stdout": "", "stdout_lines": []}
+2024-06-08 19:58:10,008 p=5299 u=thefisherking n=ansible | ...ignoring
+2024-06-08 19:58:10,011 p=5299 u=thefisherking n=ansible | TASK [Create Docker container 2] ****************************************************************************************************************
+2024-06-08 19:58:10,371 p=5299 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 19:58:10,374 p=5299 u=thefisherking n=ansible | TASK [Create user 'user' inside container2] *****************************************************************************************************
+2024-06-08 19:58:10,657 p=5299 u=thefisherking n=ansible | fatal: [localhost]: FAILED! => {"changed": true, "cmd": ["docker", "exec", "container2", "adduser", "-D", "-u", "1000", "user"], "delta": "0:00:00.090938", "end": "2024-06-08 19:58:10.632202", "msg": "non-zero return code", "rc": 1, "start": "2024-06-08 19:58:10.541264", "stderr": "adduser: user 'user' in use", "stderr_lines": ["adduser: user 'user' in use"], "stdout": "", "stdout_lines": []}
+2024-06-08 19:58:10,657 p=5299 u=thefisherking n=ansible | ...ignoring
+2024-06-08 19:58:10,661 p=5299 u=thefisherking n=ansible | TASK [Retrieve IP address of container1] ********************************************************************************************************
+2024-06-08 19:58:10,913 p=5299 u=thefisherking n=ansible | changed: [localhost]
+2024-06-08 19:58:10,916 p=5299 u=thefisherking n=ansible | TASK [Retrieve IP address of container2] ********************************************************************************************************
+2024-06-08 19:58:11,166 p=5299 u=thefisherking n=ansible | changed: [localhost]
+2024-06-08 19:58:11,170 p=5299 u=thefisherking n=ansible | TASK [Create dynamic inventory] *****************************************************************************************************************
+2024-06-08 19:58:11,667 p=5299 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 19:58:11,671 p=5299 u=thefisherking n=ansible | TASK [Display dynamic inventory file content] ***************************************************************************************************
+2024-06-08 19:58:11,867 p=5299 u=thefisherking n=ansible | changed: [localhost]
+2024-06-08 19:58:11,870 p=5299 u=thefisherking n=ansible | TASK [Show inventory content] *******************************************************************************************************************
+2024-06-08 19:58:11,879 p=5299 u=thefisherking n=ansible | ok: [localhost] => {
+    "msg": "[docker_containers]\ncontainer1 ansible_host=172.19.0.2 ansible_port=2222 ansible_user=user ansible_ssh_private_key_file=~/.ssh/id_rsa\ncontainer2 ansible_host=172.19.0.3 ansible_port=2223 ansible_user=user ansible_ssh_private_key_file=~/.ssh/id_rsa"
+}
+2024-06-08 19:58:11,881 p=5299 u=thefisherking n=ansible | TASK [Display IP address of container1] *********************************************************************************************************
+2024-06-08 19:58:11,889 p=5299 u=thefisherking n=ansible | ok: [localhost] => {
+    "msg": "Container1 IP: 172.19.0.2"
+}
+2024-06-08 19:58:11,892 p=5299 u=thefisherking n=ansible | TASK [Display IP address of container2] *********************************************************************************************************
+2024-06-08 19:58:11,900 p=5299 u=thefisherking n=ansible | ok: [localhost] => {
+    "msg": "Container2 IP: 172.19.0.3"
+}
+2024-06-08 19:58:11,902 p=5299 u=thefisherking n=ansible | TASK [Ensure containers are running] ************************************************************************************************************
+2024-06-08 19:58:12,270 p=5299 u=thefisherking n=ansible | ok: [localhost] => (item=container1)
+2024-06-08 19:58:12,622 p=5299 u=thefisherking n=ansible | ok: [localhost] => (item=container2)
+2024-06-08 19:58:12,627 p=5299 u=thefisherking n=ansible | TASK [Wait for SSH to be available on container1] ***********************************************************************************************
+2024-06-08 19:58:12,883 p=5299 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 19:58:12,886 p=5299 u=thefisherking n=ansible | TASK [Wait for SSH to be available on container2] ***********************************************************************************************
+2024-06-08 19:58:13,082 p=5299 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 19:58:13,085 p=5299 u=thefisherking n=ansible | TASK [Copy SSH public key to container1] ********************************************************************************************************
+2024-06-08 19:58:13,534 p=5299 u=thefisherking n=ansible | fatal: [localhost]: FAILED! => {"changed": true, "rc": 1, "stderr": "sh: can't create /root/.ssh/authorized_keys: Is a directory", "stderr_lines": ["sh: can't create /root/.ssh/authorized_keys: Is a directory"], "stdout": "", "stdout_lines": []}
+2024-06-08 19:58:13,535 p=5299 u=thefisherking n=ansible | PLAY RECAP **************************************************************************************************************************************
+2024-06-08 19:58:13,535 p=5299 u=thefisherking n=ansible | localhost                  : ok=20   changed=7    unreachable=0    failed=1    skipped=3    rescued=0    ignored=2   
+2024-06-08 20:00:54,207 p=6105 u=thefisherking n=ansible | PLAY [Ensure necessary Python packages are installed] *******************************************************************************************
+2024-06-08 20:00:54,215 p=6105 u=thefisherking n=ansible | TASK [Gathering Facts] **************************************************************************************************************************
+2024-06-08 20:00:54,715 p=6105 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 20:00:54,721 p=6105 u=thefisherking n=ansible | TASK [Ensure requests module is installed] ******************************************************************************************************
+2024-06-08 20:00:55,405 p=6105 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 20:00:55,414 p=6105 u=thefisherking n=ansible | PLAY [Ensure Docker is installed and running, set up Docker containers] *************************************************************************
+2024-06-08 20:00:55,421 p=6105 u=thefisherking n=ansible | TASK [Check if Docker is installed] *************************************************************************************************************
+2024-06-08 20:00:55,671 p=6105 u=thefisherking n=ansible | changed: [localhost]
+2024-06-08 20:00:55,673 p=6105 u=thefisherking n=ansible | TASK [Install Docker using Homebrew] ************************************************************************************************************
+2024-06-08 20:00:55,680 p=6105 u=thefisherking n=ansible | skipping: [localhost]
+2024-06-08 20:00:55,683 p=6105 u=thefisherking n=ansible | TASK [Start Docker Desktop (macOS specific)] ****************************************************************************************************
+2024-06-08 20:00:55,690 p=6105 u=thefisherking n=ansible | skipping: [localhost]
+2024-06-08 20:00:55,693 p=6105 u=thefisherking n=ansible | TASK [Wait for Docker to start] *****************************************************************************************************************
+2024-06-08 20:00:55,699 p=6105 u=thefisherking n=ansible | skipping: [localhost]
+2024-06-08 20:00:55,701 p=6105 u=thefisherking n=ansible | TASK [Ensure Docker is running] *****************************************************************************************************************
+2024-06-08 20:00:55,958 p=6105 u=thefisherking n=ansible | changed: [localhost]
+2024-06-08 20:00:55,960 p=6105 u=thefisherking n=ansible | TASK [Create Docker network] ********************************************************************************************************************
+2024-06-08 20:00:56,409 p=6105 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 20:00:56,412 p=6105 u=thefisherking n=ansible | TASK [Build Docker image from Dockerfile] *******************************************************************************************************
+2024-06-08 20:00:56,855 p=6105 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 20:00:56,858 p=6105 u=thefisherking n=ansible | TASK [Create Docker container 1] ****************************************************************************************************************
+2024-06-08 20:00:57,361 p=6105 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 20:00:57,364 p=6105 u=thefisherking n=ansible | TASK [Create user 'user' inside container1] *****************************************************************************************************
+2024-06-08 20:00:57,654 p=6105 u=thefisherking n=ansible | fatal: [localhost]: FAILED! => {"changed": true, "cmd": ["docker", "exec", "container1", "adduser", "-D", "-u", "1000", "user"], "delta": "0:00:00.095385", "end": "2024-06-08 20:00:57.631574", "msg": "non-zero return code", "rc": 1, "start": "2024-06-08 20:00:57.536189", "stderr": "adduser: user 'user' in use", "stderr_lines": ["adduser: user 'user' in use"], "stdout": "", "stdout_lines": []}
+2024-06-08 20:00:57,654 p=6105 u=thefisherking n=ansible | ...ignoring
+2024-06-08 20:00:57,656 p=6105 u=thefisherking n=ansible | TASK [Create Docker container 2] ****************************************************************************************************************
+2024-06-08 20:00:58,032 p=6105 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 20:00:58,035 p=6105 u=thefisherking n=ansible | TASK [Create user 'user' inside container2] *****************************************************************************************************
+2024-06-08 20:00:58,321 p=6105 u=thefisherking n=ansible | fatal: [localhost]: FAILED! => {"changed": true, "cmd": ["docker", "exec", "container2", "adduser", "-D", "-u", "1000", "user"], "delta": "0:00:00.094514", "end": "2024-06-08 20:00:58.297552", "msg": "non-zero return code", "rc": 1, "start": "2024-06-08 20:00:58.203038", "stderr": "adduser: user 'user' in use", "stderr_lines": ["adduser: user 'user' in use"], "stdout": "", "stdout_lines": []}
+2024-06-08 20:00:58,321 p=6105 u=thefisherking n=ansible | ...ignoring
+2024-06-08 20:00:58,325 p=6105 u=thefisherking n=ansible | TASK [Retrieve IP address of container1] ********************************************************************************************************
+2024-06-08 20:00:58,576 p=6105 u=thefisherking n=ansible | changed: [localhost]
+2024-06-08 20:00:58,579 p=6105 u=thefisherking n=ansible | TASK [Retrieve IP address of container2] ********************************************************************************************************
+2024-06-08 20:00:58,832 p=6105 u=thefisherking n=ansible | changed: [localhost]
+2024-06-08 20:00:58,836 p=6105 u=thefisherking n=ansible | TASK [Create dynamic inventory] *****************************************************************************************************************
+2024-06-08 20:00:59,320 p=6105 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 20:00:59,324 p=6105 u=thefisherking n=ansible | TASK [Display dynamic inventory file content] ***************************************************************************************************
+2024-06-08 20:00:59,518 p=6105 u=thefisherking n=ansible | changed: [localhost]
+2024-06-08 20:00:59,521 p=6105 u=thefisherking n=ansible | TASK [Show inventory content] *******************************************************************************************************************
+2024-06-08 20:00:59,529 p=6105 u=thefisherking n=ansible | ok: [localhost] => {
+    "msg": "[docker_containers]\ncontainer1 ansible_host=172.19.0.2 ansible_port=2222 ansible_user=user ansible_ssh_private_key_file=~/.ssh/id_rsa\ncontainer2 ansible_host=172.19.0.3 ansible_port=2223 ansible_user=user ansible_ssh_private_key_file=~/.ssh/id_rsa"
+}
+2024-06-08 20:00:59,532 p=6105 u=thefisherking n=ansible | TASK [Display IP address of container1] *********************************************************************************************************
+2024-06-08 20:00:59,540 p=6105 u=thefisherking n=ansible | ok: [localhost] => {
+    "msg": "Container1 IP: 172.19.0.2"
+}
+2024-06-08 20:00:59,542 p=6105 u=thefisherking n=ansible | TASK [Display IP address of container2] *********************************************************************************************************
+2024-06-08 20:00:59,550 p=6105 u=thefisherking n=ansible | ok: [localhost] => {
+    "msg": "Container2 IP: 172.19.0.3"
+}
+2024-06-08 20:00:59,553 p=6105 u=thefisherking n=ansible | TASK [Ensure containers are running] ************************************************************************************************************
+2024-06-08 20:00:59,918 p=6105 u=thefisherking n=ansible | ok: [localhost] => (item=container1)
+2024-06-08 20:01:00,279 p=6105 u=thefisherking n=ansible | ok: [localhost] => (item=container2)
+2024-06-08 20:01:00,284 p=6105 u=thefisherking n=ansible | TASK [Wait for SSH to be available on container1] ***********************************************************************************************
+2024-06-08 20:01:00,544 p=6105 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 20:01:00,547 p=6105 u=thefisherking n=ansible | TASK [Wait for SSH to be available on container2] ***********************************************************************************************
+2024-06-08 20:01:00,747 p=6105 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 20:01:00,750 p=6105 u=thefisherking n=ansible | TASK [Copy SSH public key to container1] ********************************************************************************************************
+2024-06-08 20:01:01,194 p=6105 u=thefisherking n=ansible | changed: [localhost]
+2024-06-08 20:01:01,197 p=6105 u=thefisherking n=ansible | TASK [Copy SSH public key to container2] ********************************************************************************************************
+2024-06-08 20:01:01,555 p=6105 u=thefisherking n=ansible | changed: [localhost]
+2024-06-08 20:01:01,565 p=6105 u=thefisherking n=ansible | PLAY [Ping Docker containers] *******************************************************************************************************************
+2024-06-08 20:01:01,567 p=6105 u=thefisherking n=ansible | TASK [Ping the container] ***********************************************************************************************************************
+2024-06-08 20:01:11,661 p=6105 u=thefisherking n=ansible | fatal: [container2]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 172.19.0.3 port 2223: Operation timed out", "unreachable": true}
+2024-06-08 20:01:11,663 p=6105 u=thefisherking n=ansible | fatal: [container1]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 172.19.0.2 port 2222: Operation timed out", "unreachable": true}
+2024-06-08 20:01:11,664 p=6105 u=thefisherking n=ansible | PLAY RECAP **************************************************************************************************************************************
+2024-06-08 20:01:11,664 p=6105 u=thefisherking n=ansible | container1                 : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2024-06-08 20:01:11,664 p=6105 u=thefisherking n=ansible | container2                 : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2024-06-08 20:01:11,664 p=6105 u=thefisherking n=ansible | localhost                  : ok=22   changed=9    unreachable=0    failed=0    skipped=3    rescued=0    ignored=2   
+2024-06-08 20:02:14,588 p=6762 u=thefisherking n=ansible | PLAY [Ensure necessary Python packages are installed] *******************************************************************************************
+2024-06-08 20:02:14,595 p=6762 u=thefisherking n=ansible | TASK [Gathering Facts] **************************************************************************************************************************
+2024-06-08 20:02:15,082 p=6762 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 20:02:15,088 p=6762 u=thefisherking n=ansible | TASK [Ensure requests module is installed] ******************************************************************************************************
+2024-06-08 20:02:15,755 p=6762 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 20:02:15,763 p=6762 u=thefisherking n=ansible | PLAY [Ensure Docker is installed and running, set up Docker containers] *************************************************************************
+2024-06-08 20:02:15,771 p=6762 u=thefisherking n=ansible | TASK [Check if Docker is installed] *************************************************************************************************************
+2024-06-08 20:02:16,013 p=6762 u=thefisherking n=ansible | changed: [localhost]
+2024-06-08 20:02:16,015 p=6762 u=thefisherking n=ansible | TASK [Install Docker using Homebrew] ************************************************************************************************************
+2024-06-08 20:02:16,022 p=6762 u=thefisherking n=ansible | skipping: [localhost]
+2024-06-08 20:02:16,025 p=6762 u=thefisherking n=ansible | TASK [Start Docker Desktop (macOS specific)] ****************************************************************************************************
+2024-06-08 20:02:16,032 p=6762 u=thefisherking n=ansible | skipping: [localhost]
+2024-06-08 20:02:16,034 p=6762 u=thefisherking n=ansible | TASK [Wait for Docker to start] *****************************************************************************************************************
+2024-06-08 20:02:16,041 p=6762 u=thefisherking n=ansible | skipping: [localhost]
+2024-06-08 20:02:16,043 p=6762 u=thefisherking n=ansible | TASK [Ensure Docker is running] *****************************************************************************************************************
+2024-06-08 20:02:16,307 p=6762 u=thefisherking n=ansible | changed: [localhost]
+2024-06-08 20:02:16,310 p=6762 u=thefisherking n=ansible | TASK [Create Docker network] ********************************************************************************************************************
+2024-06-08 20:02:16,742 p=6762 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 20:02:16,745 p=6762 u=thefisherking n=ansible | TASK [Build Docker image from Dockerfile] *******************************************************************************************************
+2024-06-08 20:02:17,191 p=6762 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 20:02:17,194 p=6762 u=thefisherking n=ansible | TASK [Create Docker container 1] ****************************************************************************************************************
+2024-06-08 20:02:17,695 p=6762 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 20:02:17,698 p=6762 u=thefisherking n=ansible | TASK [Create user 'user' inside container1] *****************************************************************************************************
+2024-06-08 20:02:17,986 p=6762 u=thefisherking n=ansible | fatal: [localhost]: FAILED! => {"changed": true, "cmd": ["docker", "exec", "container1", "adduser", "-D", "-u", "1000", "user"], "delta": "0:00:00.096088", "end": "2024-06-08 20:02:17.964226", "msg": "non-zero return code", "rc": 1, "start": "2024-06-08 20:02:17.868138", "stderr": "adduser: user 'user' in use", "stderr_lines": ["adduser: user 'user' in use"], "stdout": "", "stdout_lines": []}
+2024-06-08 20:02:17,987 p=6762 u=thefisherking n=ansible | ...ignoring
+2024-06-08 20:02:17,989 p=6762 u=thefisherking n=ansible | TASK [Create Docker container 2] ****************************************************************************************************************
+2024-06-08 20:02:18,358 p=6762 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 20:02:18,361 p=6762 u=thefisherking n=ansible | TASK [Create user 'user' inside container2] *****************************************************************************************************
+2024-06-08 20:02:18,647 p=6762 u=thefisherking n=ansible | fatal: [localhost]: FAILED! => {"changed": true, "cmd": ["docker", "exec", "container2", "adduser", "-D", "-u", "1000", "user"], "delta": "0:00:00.097351", "end": "2024-06-08 20:02:18.625071", "msg": "non-zero return code", "rc": 1, "start": "2024-06-08 20:02:18.527720", "stderr": "adduser: user 'user' in use", "stderr_lines": ["adduser: user 'user' in use"], "stdout": "", "stdout_lines": []}
+2024-06-08 20:02:18,647 p=6762 u=thefisherking n=ansible | ...ignoring
+2024-06-08 20:02:18,651 p=6762 u=thefisherking n=ansible | TASK [Retrieve IP address of container1] ********************************************************************************************************
+2024-06-08 20:02:18,896 p=6762 u=thefisherking n=ansible | changed: [localhost]
+2024-06-08 20:02:18,898 p=6762 u=thefisherking n=ansible | TASK [Retrieve IP address of container2] ********************************************************************************************************
+2024-06-08 20:02:19,150 p=6762 u=thefisherking n=ansible | changed: [localhost]
+2024-06-08 20:02:19,154 p=6762 u=thefisherking n=ansible | TASK [Create dynamic inventory] *****************************************************************************************************************
+2024-06-08 20:02:19,649 p=6762 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 20:02:19,653 p=6762 u=thefisherking n=ansible | TASK [Display dynamic inventory file content] ***************************************************************************************************
+2024-06-08 20:02:19,847 p=6762 u=thefisherking n=ansible | changed: [localhost]
+2024-06-08 20:02:19,850 p=6762 u=thefisherking n=ansible | TASK [Show inventory content] *******************************************************************************************************************
+2024-06-08 20:02:19,859 p=6762 u=thefisherking n=ansible | ok: [localhost] => {
+    "msg": "[docker_containers]\ncontainer1 ansible_host=172.19.0.2 ansible_port=2222 ansible_user=user ansible_ssh_private_key_file=~/.ssh/id_rsa\ncontainer2 ansible_host=172.19.0.3 ansible_port=2223 ansible_user=user ansible_ssh_private_key_file=~/.ssh/id_rsa"
+}
+2024-06-08 20:02:19,861 p=6762 u=thefisherking n=ansible | TASK [Display IP address of container1] *********************************************************************************************************
+2024-06-08 20:02:19,870 p=6762 u=thefisherking n=ansible | ok: [localhost] => {
+    "msg": "Container1 IP: 172.19.0.2"
+}
+2024-06-08 20:02:19,872 p=6762 u=thefisherking n=ansible | TASK [Display IP address of container2] *********************************************************************************************************
+2024-06-08 20:02:19,880 p=6762 u=thefisherking n=ansible | ok: [localhost] => {
+    "msg": "Container2 IP: 172.19.0.3"
+}
+2024-06-08 20:02:19,882 p=6762 u=thefisherking n=ansible | TASK [Ensure containers are running] ************************************************************************************************************
+2024-06-08 20:02:20,258 p=6762 u=thefisherking n=ansible | ok: [localhost] => (item=container1)
+2024-06-08 20:02:20,614 p=6762 u=thefisherking n=ansible | ok: [localhost] => (item=container2)
+2024-06-08 20:02:20,619 p=6762 u=thefisherking n=ansible | TASK [Wait for SSH to be available on container1] ***********************************************************************************************
+2024-06-08 20:02:20,879 p=6762 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 20:02:20,881 p=6762 u=thefisherking n=ansible | TASK [Wait for SSH to be available on container2] ***********************************************************************************************
+2024-06-08 20:02:21,091 p=6762 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 20:02:21,094 p=6762 u=thefisherking n=ansible | TASK [Copy SSH public key to container1] ********************************************************************************************************
+2024-06-08 20:02:21,552 p=6762 u=thefisherking n=ansible | changed: [localhost]
+2024-06-08 20:02:21,554 p=6762 u=thefisherking n=ansible | TASK [Copy SSH public key to container2] ********************************************************************************************************
+2024-06-08 20:02:21,909 p=6762 u=thefisherking n=ansible | changed: [localhost]
+2024-06-08 20:02:21,919 p=6762 u=thefisherking n=ansible | PLAY [Ping Docker containers] *******************************************************************************************************************
+2024-06-08 20:02:21,921 p=6762 u=thefisherking n=ansible | TASK [Ping the container] ***********************************************************************************************************************
+2024-06-08 20:02:32,007 p=6762 u=thefisherking n=ansible | fatal: [container2]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 172.19.0.3 port 2223: Operation timed out", "unreachable": true}
+2024-06-08 20:02:32,008 p=6762 u=thefisherking n=ansible | fatal: [container1]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 172.19.0.2 port 2222: Operation timed out", "unreachable": true}
+2024-06-08 20:02:32,008 p=6762 u=thefisherking n=ansible | PLAY RECAP **************************************************************************************************************************************
+2024-06-08 20:02:32,009 p=6762 u=thefisherking n=ansible | container1                 : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2024-06-08 20:02:32,009 p=6762 u=thefisherking n=ansible | container2                 : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2024-06-08 20:02:32,009 p=6762 u=thefisherking n=ansible | localhost                  : ok=22   changed=9    unreachable=0    failed=0    skipped=3    rescued=0    ignored=2   
+2024-06-08 20:09:33,899 p=8233 u=thefisherking n=ansible | ERROR! We were unable to read either as JSON nor YAML, these are the errors we got from each:
+JSON: Expecting value: line 1 column 1 (char 0)
+
+Syntax Error while loading YAML.
+  mapping values are not allowed in this context
+
+The error appears to be in '/Users/thefisherking/DEV/ansible_playgrounds/ANSBL_01/setup_containers.yaml': line 162, column 16, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+    - name: Check uptime of container1
+        command: uptime
+               ^ here
+
+2024-06-08 20:10:01,787 p=8305 u=thefisherking n=ansible | ERROR! conflicting action statements: debug, var
+
+The error appears to be in '/Users/thefisherking/DEV/ansible_playgrounds/ANSBL_01/setup_containers.yaml': line 165, column 7, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+
+    - debug:
+      ^ here
+
+2024-06-08 20:10:25,628 p=8359 u=thefisherking n=ansible | PLAY [Ensure necessary Python packages are installed] *******************************************************************************************
+2024-06-08 20:10:25,636 p=8359 u=thefisherking n=ansible | TASK [Gathering Facts] **************************************************************************************************************************
+2024-06-08 20:10:26,313 p=8359 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 20:10:26,319 p=8359 u=thefisherking n=ansible | TASK [Ensure requests module is installed] ******************************************************************************************************
+2024-06-08 20:10:27,015 p=8359 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 20:10:27,024 p=8359 u=thefisherking n=ansible | PLAY [Ensure Docker is installed and running, set up Docker containers] *************************************************************************
+2024-06-08 20:10:27,031 p=8359 u=thefisherking n=ansible | TASK [Check if Docker is installed] *************************************************************************************************************
+2024-06-08 20:10:27,289 p=8359 u=thefisherking n=ansible | changed: [localhost]
+2024-06-08 20:10:27,293 p=8359 u=thefisherking n=ansible | TASK [Install Docker using Homebrew] ************************************************************************************************************
+2024-06-08 20:10:27,300 p=8359 u=thefisherking n=ansible | skipping: [localhost]
+2024-06-08 20:10:27,302 p=8359 u=thefisherking n=ansible | TASK [Start Docker Desktop (macOS specific)] ****************************************************************************************************
+2024-06-08 20:10:27,308 p=8359 u=thefisherking n=ansible | skipping: [localhost]
+2024-06-08 20:10:27,311 p=8359 u=thefisherking n=ansible | TASK [Wait for Docker to start] *****************************************************************************************************************
+2024-06-08 20:10:27,317 p=8359 u=thefisherking n=ansible | skipping: [localhost]
+2024-06-08 20:10:27,320 p=8359 u=thefisherking n=ansible | TASK [Ensure Docker is running] *****************************************************************************************************************
+2024-06-08 20:10:27,571 p=8359 u=thefisherking n=ansible | changed: [localhost]
+2024-06-08 20:10:27,574 p=8359 u=thefisherking n=ansible | TASK [Create Docker network] ********************************************************************************************************************
+2024-06-08 20:10:28,018 p=8359 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 20:10:28,020 p=8359 u=thefisherking n=ansible | TASK [Build Docker image from Dockerfile] *******************************************************************************************************
+2024-06-08 20:10:28,463 p=8359 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 20:10:28,466 p=8359 u=thefisherking n=ansible | TASK [Create Docker container 1] ****************************************************************************************************************
+2024-06-08 20:10:28,968 p=8359 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 20:10:28,971 p=8359 u=thefisherking n=ansible | TASK [Create user 'user' inside container1] *****************************************************************************************************
+2024-06-08 20:10:29,265 p=8359 u=thefisherking n=ansible | fatal: [localhost]: FAILED! => {"changed": true, "cmd": ["docker", "exec", "container1", "adduser", "-D", "-u", "1000", "user"], "delta": "0:00:00.103124", "end": "2024-06-08 20:10:29.241838", "msg": "non-zero return code", "rc": 1, "start": "2024-06-08 20:10:29.138714", "stderr": "adduser: user 'user' in use", "stderr_lines": ["adduser: user 'user' in use"], "stdout": "", "stdout_lines": []}
+2024-06-08 20:10:29,265 p=8359 u=thefisherking n=ansible | ...ignoring
+2024-06-08 20:10:29,267 p=8359 u=thefisherking n=ansible | TASK [Create Docker container 2] ****************************************************************************************************************
+2024-06-08 20:10:29,650 p=8359 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 20:10:29,652 p=8359 u=thefisherking n=ansible | TASK [Create user 'user' inside container2] *****************************************************************************************************
+2024-06-08 20:10:29,936 p=8359 u=thefisherking n=ansible | fatal: [localhost]: FAILED! => {"changed": true, "cmd": ["docker", "exec", "container2", "adduser", "-D", "-u", "1000", "user"], "delta": "0:00:00.091697", "end": "2024-06-08 20:10:29.912977", "msg": "non-zero return code", "rc": 1, "start": "2024-06-08 20:10:29.821280", "stderr": "adduser: user 'user' in use", "stderr_lines": ["adduser: user 'user' in use"], "stdout": "", "stdout_lines": []}
+2024-06-08 20:10:29,936 p=8359 u=thefisherking n=ansible | ...ignoring
+2024-06-08 20:10:29,940 p=8359 u=thefisherking n=ansible | TASK [Retrieve IP address of container1] ********************************************************************************************************
+2024-06-08 20:10:30,193 p=8359 u=thefisherking n=ansible | changed: [localhost]
+2024-06-08 20:10:30,196 p=8359 u=thefisherking n=ansible | TASK [Retrieve IP address of container2] ********************************************************************************************************
+2024-06-08 20:10:30,450 p=8359 u=thefisherking n=ansible | changed: [localhost]
+2024-06-08 20:10:30,455 p=8359 u=thefisherking n=ansible | TASK [Create dynamic inventory] *****************************************************************************************************************
+2024-06-08 20:10:30,940 p=8359 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 20:10:30,942 p=8359 u=thefisherking n=ansible | TASK [Display dynamic inventory file content] ***************************************************************************************************
+2024-06-08 20:10:31,138 p=8359 u=thefisherking n=ansible | changed: [localhost]
+2024-06-08 20:10:31,141 p=8359 u=thefisherking n=ansible | TASK [Show inventory content] *******************************************************************************************************************
+2024-06-08 20:10:31,150 p=8359 u=thefisherking n=ansible | ok: [localhost] => {
+    "msg": "[docker_containers]\ncontainer1 ansible_host=172.19.0.2 ansible_port=2222 ansible_user=user ansible_ssh_private_key_file=~/.ssh/id_rsa\ncontainer2 ansible_host=172.19.0.3 ansible_port=2223 ansible_user=user ansible_ssh_private_key_file=~/.ssh/id_rsa"
+}
+2024-06-08 20:10:31,152 p=8359 u=thefisherking n=ansible | TASK [Display IP address of container1] *********************************************************************************************************
+2024-06-08 20:10:31,160 p=8359 u=thefisherking n=ansible | ok: [localhost] => {
+    "msg": "Container1 IP: 172.19.0.2"
+}
+2024-06-08 20:10:31,163 p=8359 u=thefisherking n=ansible | TASK [Display IP address of container2] *********************************************************************************************************
+2024-06-08 20:10:31,171 p=8359 u=thefisherking n=ansible | ok: [localhost] => {
+    "msg": "Container2 IP: 172.19.0.3"
+}
+2024-06-08 20:10:31,173 p=8359 u=thefisherking n=ansible | TASK [Ensure containers are running] ************************************************************************************************************
+2024-06-08 20:10:31,550 p=8359 u=thefisherking n=ansible | ok: [localhost] => (item=container1)
+2024-06-08 20:10:31,908 p=8359 u=thefisherking n=ansible | ok: [localhost] => (item=container2)
+2024-06-08 20:10:31,913 p=8359 u=thefisherking n=ansible | TASK [Wait for SSH to be available on container1] ***********************************************************************************************
+2024-06-08 20:10:32,171 p=8359 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 20:10:32,174 p=8359 u=thefisherking n=ansible | TASK [Wait for SSH to be available on container2] ***********************************************************************************************
+2024-06-08 20:10:32,376 p=8359 u=thefisherking n=ansible | ok: [localhost]
+2024-06-08 20:10:32,379 p=8359 u=thefisherking n=ansible | TASK [Copy SSH public key to container1] ********************************************************************************************************
+2024-06-08 20:10:32,829 p=8359 u=thefisherking n=ansible | changed: [localhost]
+2024-06-08 20:10:32,832 p=8359 u=thefisherking n=ansible | TASK [Copy SSH public key to container2] ********************************************************************************************************
+2024-06-08 20:10:33,184 p=8359 u=thefisherking n=ansible | changed: [localhost]
+2024-06-08 20:10:33,194 p=8359 u=thefisherking n=ansible | PLAY [Ping Docker containers] *******************************************************************************************************************
+2024-06-08 20:10:33,196 p=8359 u=thefisherking n=ansible | TASK [Check uptime of container1] ***************************************************************************************************************
+2024-06-08 20:10:43,228 p=8359 u=thefisherking n=ansible | fatal: [container1]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 172.19.0.2 port 2222: Operation timed out", "unreachable": true}
+2024-06-08 20:10:43,229 p=8359 u=thefisherking n=ansible | fatal: [container2]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 172.19.0.3 port 2223: Operation timed out", "unreachable": true}
+2024-06-08 20:10:43,230 p=8359 u=thefisherking n=ansible | PLAY RECAP **************************************************************************************************************************************
+2024-06-08 20:10:43,230 p=8359 u=thefisherking n=ansible | container1                 : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2024-06-08 20:10:43,230 p=8359 u=thefisherking n=ansible | container2                 : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2024-06-08 20:10:43,230 p=8359 u=thefisherking n=ansible | localhost                  : ok=22   changed=9    unreachable=0    failed=0    skipped=3    rescued=0    ignored=2   

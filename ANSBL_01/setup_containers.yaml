@@ -81,7 +81,7 @@
           - "7683:7681"
         networks:
           - name: ansible_network
-        command: /bin/sh -c "apk add --no-cache openssh && ssh-keygen -A && /usr/sbin/sshd -D"
+        command: sleep infinity
 
     - name: Create user 'user' inside container2
       command: docker exec container2 adduser -D -u 1000 user   
@@ -142,17 +142,29 @@
     - name: Copy SSH public key to container1
       community.docker.docker_container_exec:
         container: container1
-        command: mkdir -p /root/.ssh && echo "{{ lookup('file', '~/.ssh/id_rsa.pub') }}" >> /root/.ssh/authorized_keys
+        command: >
+          sh -c 'mkdir -p /root/.ssh && echo -e "{{ lookup('file', '~/.ssh/id_rsa.pub') }}" >> /root/.ssh/authorized_keys'
 
     - name: Copy SSH public key to container2
       community.docker.docker_container_exec:
         container: container2
-        command: mkdir -p /root/.ssh && echo "{{ lookup('file', '~/.ssh/id_rsa.pub') }}" >> /root/.ssh/authorized_keys
+        command: >
+          sh -c 'mkdir -p /root/.ssh && echo -e "{{ lookup('file', '~/.ssh/id_rsa.pub') }}" >> /root/.ssh/authorized_keys'
+
+
 
 - name: Ping Docker containers
   hosts: docker_containers
   gather_facts: false
   tasks:
+
+    - name: Check uptime of container1
+      command: uptime
+      register: uptime_output
+
+    - debug:
+        var: uptime_output.stdout
+
 
     - name: Ping the container
       ping:          
