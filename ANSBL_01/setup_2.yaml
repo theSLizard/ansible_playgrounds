@@ -1,0 +1,71 @@
+---
+- name: Setup Docker containers with SSH
+  hosts: localhost
+  tasks:
+    - name: Create Docker network
+      docker_network:
+        name: ansible_network
+
+    - name: Pull the Ubuntu image
+      docker_image:
+        name: ubuntu
+        source: pull
+
+    - name: Create Docker container 1
+      docker_container:
+        name: container1
+        image: ubuntu
+        state: started
+        published_ports:
+          - "2222:22"
+        networks:
+          - name: ansible_network
+        command: /bin/bash -c "apt-get update && apt-get install -y openssh-server sudo && mkdir /var/run/sshd && echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config && service ssh start && useradd -m -s /bin/bash user && echo 'user:user' | chpasswd && mkdir -p /home/user/.ssh && chown user:user /home/user/.ssh && chmod 700 /home/user/.ssh"
+
+    - name: Create Docker container 2
+      docker_container:
+        name: container2
+        image: ubuntu
+        state: started
+        published_ports:
+          - "2223:22"
+        networks:
+          - name: ansible_network
+        command: /bin/bash -c "apt-get update && apt-get install -y openssh-server sudo && mkdir /var/run/sshd && echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config && service ssh start && useradd -m -s /bin/bash user && echo 'user:user' | chpasswd && mkdir -p /home/user/.ssh && chown user:user /home/user/.ssh && chmod 700 /home/user/.ssh"
+
+    - name: Ensure SSH public key exists on host
+      copy:
+        src: ~/.ssh/id_rsa.pub
+        dest: /tmp/id_rsa.pub
+      delegate_to: localhost
+      run_once: true
+
+    - name: Copy SSH public key to container1
+      command: docker cp /tmp/id_rsa.pub container1:/home/user/.ssh/authorized_keys
+
+    - name: Copy SSH public key to container2
+      command: docker cp /tmp/id_rsa.pub container2:/home/user/.ssh/authorized_keys
+
+    - name: Set correct permissions on authorized_keys in container1
+      command: docker exec container1 chmod 600 /home/user/.ssh/authorized_keys
+
+    - name: Set correct permissions on authorized_keys in container2
+      command: docker exec container2 chmod 600 /home/user/.ssh/authorized_keys
+
+    - name: Ensure SSH key ownership in container1
+      command: docker exec container1 chown user:user /home/user/.ssh/authorized_keys
+
+    - name: Ensure SSH key ownership in container2
+      command: docker exec container2 chown user:user /home/user/.ssh/authorized_keys
+
+    - name: Install sudo in container1
+      command: docker exec container1 apt-get install -y sudo
+
+    - name: Install sudo in container2
+      command: docker exec container2 apt-get install -y sudo
+
+    - name: Add user to sudoers in container1
+      command: docker exec container1 bash -c "echo 'user ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers"
+
+    - name: Add user to sudoers in container2
+      command: docker exec container2 bash -c "echo 'user ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers"

@@ -1,6 +1,38 @@
 ---
 - name: Ping Docker containers
   hosts: docker_containers
+  become: true
   tasks:
+    - name: Install OpenSSH on Alpine
+      apk:
+        name: openssh
+        state: present
+
+    - name: Ensure .ssh directory exists
+      file:
+        path: /root/.ssh
+        state: directory
+        mode: '0700'
+
+    - name: Copy SSH public key to authorized_keys
+      copy:
+        src: ~/.ssh/id_rsa.pub
+        dest: /root/.ssh/authorized_keys
+        owner: root
+        mode: '0600'
+
+    - name: Start SSH service
+      shell: rc-service sshd start
+
+    - name: Ensure SSH service is running
+      shell: rc-service sshd status
+      register: ssh_status
+
+    - debug:
+        var: ssh_status
+
+    - debug:
+        var: ansible_all_ipv4_addresses
+
     - name: Ping the container
-      ping:
+      ping:    
