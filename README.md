@@ -10,6 +10,8 @@ ssh -o StrictHostKeyChecking=no ansible@ubuntu2
 
 ---
 
+sshpass -p "password" ssh-copy-id -o StrictHostKeyChecking=no "ansible@ubuntu1"
+
 
 #!/bin/bash
 
